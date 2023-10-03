@@ -118,7 +118,7 @@ const getEmeraldContextData = async (incomingChatDiv, userText, asset_id) => {
         const response = await (await fetch(API_URL, requestOptions)).json();
         console.log(response, "::::response getEmeraldContextData");
         const pElement = document.createElement("p");
-        pElement.innerHTML = response.data;
+        pElement.textContent = response.data;
         console.log(pElement.innerHTML,":::::textcontent")
     } catch (error) { // Add error class to the paragraph element and set error text
         pElement.classList.add("error");
