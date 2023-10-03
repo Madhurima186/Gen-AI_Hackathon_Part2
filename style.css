@@ -1,0 +1,469 @@
+/* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+  font-weight: 700;
+}
+
+:root {
+  --text-color: #5b5e71;
+  --icon-color: #ACACBE;
+  --icon-hover-bg: #5b5e71;
+  --placeholder-color: #dcdcdc;
+  --outgoing-chat-bg: #343541;
+  --incoming-chat-bg: #444654;
+  --outgoing-chat-border: #343541;
+  --incoming-chat-border: #444654;
+
+}
+
+.light-mode {
+  --text-color: #343541;
+  --icon-color: #a9a9bc;
+  --icon-hover-bg: #f1f1f3;
+  --placeholder-color: #6c6c6c;
+  --outgoing-chat-bg: #FFFFFF;
+  --incoming-chat-bg: #F7F7F8;
+  --outgoing-chat-border: #FFFFFF;
+  --incoming-chat-border: #D9D9E3;
+}
+
+body {
+  background: var(--outgoing-chat-bg);
+}
+
+/* Chats container styling */
+.chat-container {
+  overflow-y: auto;
+  max-height: 83vh;
+  width: 100%;
+}
+
+:where(.chat-container, textarea)::-webkit-scrollbar {
+  width: 6px;
+}
+
+:where(.chat-container, textarea)::-webkit-scrollbar-track {
+  background: var(--incoming-chat-bg);
+  border-radius: 25px;
+}
+
+:where(.chat-container, textarea)::-webkit-scrollbar-thumb {
+  background: var(--icon-color);
+  border-radius: 25px;
+}
+
+.default-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 74vh;
+  padding: 0 10px;
+  text-align: center;
+  color: var(--text-color);
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+}
+
+.default-text h1 {
+  font-size: 3.3rem;
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+}
+
+.default-text p {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+}
+
+.chat-container .chat {
+
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+}
+
+.chat-container .chat.outgoing {
+  background: var(--outgoing-chat-bg);
+  border: 1px solid var(--outgoing-chat-border);
+  width: 60%;
+  border: solid 5px black;
+  padding: 1rem;
+  margin: 1rem;
+  margin-left: 18rem;
+  margin-right: 2rem;
+  border-radius: 40px 40px 0px 40px;
+  border-color: rgb(234, 234, 234);
+  background-color: rgb(250, 250, 250);
+}
+
+.chat-container .chat.incoming {
+  background: var(--incoming-chat-bg);
+  border: 1px solid var(--incoming-chat-border);
+  width: 60%;
+  border: solid 5px black;
+  padding: 1rem;
+  margin: 1rem;
+  margin-left: 8rem;
+  margin-right: 2rem;
+  border-radius: 40px 40px 40px 0px;
+  border-color: rgb(234, 234, 234);
+  background-color: rgb(250, 250, 250);
+}
+
+.chat .chat-content {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+
+}
+
+span.material-symbols-rounded {
+  user-select: none;
+  cursor: pointer;
+}
+
+.chat .chat-content span {
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: var(--icon-color);
+  visibility: hidden;
+}
+
+.chat:hover .chat-content:not(:has(.typing-animation), :has(.error)) span {
+  visibility: visible;
+
+  margin-top: 5px;
+}
+
+.chat .chat-details {
+  display: flex;
+  align-items: center;
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+}
+
+.chat .chat-details img {
+  width: 35px;
+  height: 35px;
+  align-self: flex-start;
+  object-fit: cover;
+  border-radius: 2px;
+  margin: auto;
+}
+
+.chat .chat-details p {
+  white-space: pre-wrap;
+  font-size: 1rem;
+  padding: 0 50px 0 25px;
+  color: var(--text-color);
+  word-break: break-word;
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+  text-align: left;
+
+}
+
+.chat .chat-details p.error {
+  color: #e55865;
+}
+
+.chat .typing-animation {
+  padding-left: 25px;
+  display: inline-flex;
+}
+
+.typing-animation .typing-dot {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  margin: 0 3px;
+  opacity: 0.7;
+  background: var(--text-color);
+  animation: animateDots 1.5s var(--delay) ease-in-out infinite;
+}
+
+.typing-animation .typing-dot:first-child {
+  margin-left: 0;
+}
+
+@keyframes animateDots {
+
+  0%,
+  44% {
+    transform: translateY(0px);
+  }
+
+  28% {
+    opacity: 0.4;
+    transform: translateY(-6px);
+  }
+
+  44% {
+    opacity: 0.2;
+  }
+}
+
+/* Typing container styling */
+.typing-container {
+  position: fixed;
+  bottom: 0;
+  width: 75%;
+  display: flex;
+  padding: 20px 8rem;
+  justify-content: center;
+  background: var(--outgoing-chat-bg);
+  border-top: 1.5px solid #D9D9E3
+}
+
+.typing-container .typing-content {
+  display: flex;
+  max-width: 950px;
+  width: 100%;
+  align-items: flex-end;
+}
+
+.typing-container .typing-textarea {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.typing-textarea textarea {
+  resize: none;
+  height: 55px;
+  width: 100%;
+  border: none;
+  padding: 15px 45px 15px 20px;
+  color: #3bafcc;
+  font-size: 1rem;
+  border-radius: 4px;
+  max-height: 250px;
+  background: aliceblue;
+  opacity: 0.95;
+  overflow-y: auto;
+  outline: 1px solid var(--incoming-chat-border);
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+}
+
+.typing-textarea textarea::placeholder {
+  color: #3bafcc;
+}
+
+.typing-content span {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  border-radius: 4px;
+  font-size: 1.35rem;
+  align-items: center;
+  justify-content: center;
+  color: #3bafcc;
+}
+
+.typing-textarea span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  visibility: hidden;
+}
+
+.typing-textarea textarea:valid~span {
+  visibility: visible;
+}
+
+.typing-controls {
+  display: flex;
+}
+
+.typing-controls span {
+  margin-left: 7px;
+  font-size: 1.4rem;
+  background: aliceblue;
+  outline: 1px solid var(--incoming-chat-border);
+}
+
+.typing-controls span:hover {
+  background: var(--icon-hover-bg);
+}
+
+/* Reponsive Media Query */
+@media screen and (max-width: 600px) {
+  .default-text h1 {
+    font-size: 2.3rem;
+  }
+
+  :where(.default-text p, textarea, .chat p) {
+    font-size: 0.95rem !important;
+  }
+
+  .chat-container .chat {
+    padding: 20px 10px;
+  }
+
+  .chat-container .chat img {
+    height: 32px;
+    width: 32px;
+  }
+
+  .chat-container .chat p {
+    padding: 0 20px;
+  }
+
+  .chat .chat-content:not(:has(.typing-animation), :has(.error)) span {
+    visibility: visible;
+  }
+
+  .typing-container {
+    padding: 15px 10px;
+  }
+
+  .typing-textarea textarea {
+    height: 45px;
+    padding: 10px 40px 10px 10px;
+  }
+
+  .typing-content span {
+    height: 45px;
+    width: 45px;
+    margin-left: 5px;
+  }
+
+  span.material-symbols-rounded {
+    font-size: 1.25rem !important;
+  }
+}
+
+.GPT-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.intro-container {
+  width: 25rem;
+  background-image: linear-gradient(#f0c099, #e592a9, #f2eef3,#3bafcc);
+  border-right: 1.5px solid #D9D9E3;
+}
+
+.intro-container ul {
+  display: block;
+    height: 54vh;
+    padding: 0px 50px;
+    text-align: left;
+    margin: 2.5rem 0rem;
+    font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+    line-height: 30px;
+    color: teal;
+    font-size: 13.5px;
+
+}
+
+.intro-container p {
+  display: block;
+  height: 10vh;
+  padding: 0 25px;
+  text-align: center;
+  margin: 2rem 0rem;
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+  line-height: 30px;
+  color: palevioletred;
+  font-size: 18.5px;
+
+
+}
+
+.intro-container h2 {
+    display: flex;
+    color: crimson;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 10vh;
+    padding: 0 10px;
+    text-align: center;
+    margin: 0rem 0rem;
+    font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+    font-size: 20.8px;
+}
+
+.chatbox {
+  width: 75%;
+  height: 100vh;
+  background-image: url(https://business.adobe.com/blog/the-latest/media_1e332ff7a9de723784208830e66415291e0120f8b.png?width=2000&format=webply&optimize=medium);
+  background-size: cover;
+  background-position: center;
+}
+
+.exp-button {
+  width: 25rem;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid #D9D9E3;
+
+}
+
+.header-text {
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Ubuntu, Trebuchet MS, Lucida Grande, sans-serif;
+  color: #2f2d2d;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+chat-inside-text {
+  --text-color: #343541;
+  --icon-color: #a9a9bc;
+  --icon-hover-bg: #f1f1f3;
+  --placeholder-color: #6c6c6c;
+  --outgoing-chat-bg: #FFFFFF;
+  --incoming-chat-bg: #F7F7F8;
+  --outgoing-chat-border: #FFFFFF;
+  --incoming-chat-border: #D9D9E3;
+  margin: 0;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  font-size: 1rem;
+  padding: 0 50px 0 25px;
+  color: var(--text-color);
+  word-break: break-word;
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+  text-align: left;
+}
+
+h5 {
+  margin: 10px;
+  font-family: adobe-clean, Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+}
+
+.frequently-asked {
+  display: flex;
+  justify-content: space-around;
+  padding: 0rem 10rem;
+}
+
+.typing-textarea.faq {
+  width: 25rem;
+  position: relative;
+}
+
+.text-content{
+  margin-top:50%;
+}
+
+.typing-textarea.faq span#send-btn {
+  visibility: visible;
+  bottom: 6px;
+  right: -10px;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  border-radius: 4px;
+  font-size: 1.35rem;
+  align-items: center;
+  justify-content: center;
+  color: #3bafcc;
+}
